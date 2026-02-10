@@ -1,2 +1,3 @@
-# daily-running-motivation-app-with-streaks-goals-and-run-logs
-Exported from Caffeine project: Daily running motivation app with streaks, goals, and run logs
+## Daily running motivation app with streaks, goals, and run logs
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

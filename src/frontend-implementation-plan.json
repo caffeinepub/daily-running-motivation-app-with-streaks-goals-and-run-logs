@@ -1,0 +1,280 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Running motivation app (frontend): auth, dashboard, streaks, logs, goals, achievements",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement Internet Identity sign-in UI/state, associate UI data with authenticated principal, and support limited guest mode with no backend persistence.",
+      "acceptanceCriteria": [
+        "When signed in with Internet Identity, the app loads the signed-in user’s running data from the backend",
+        "If not signed in, the UI can still be explored in a guest mode but cannot persist data to the backend (or clearly prompts to sign in when attempting to save)",
+        "Signing out returns the app to the signed-out state and does not show the prior user’s data"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the app shell with navigation, authenticated vs guest state handling, and route wiring. Use the authorization component patterns (Internet Identity via useInternetIdentity + useActor) to support sign-in/sign-out and to ensure cached user data is cleared on logout; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/AuthButton.tsx",
+          "operation": "create",
+          "description": "Add a login/logout button component using Internet Identity state from the authorization component hook; on logout, clear React Query cache to prevent prior user data from showing; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupDialog.tsx",
+          "operation": "create",
+          "description": "Implement a first-login profile setup dialog prompting for optional display name, using getCallerUserProfile/saveCallerUserProfile flows from the authorization component guidance (avoid modal flash by gating on actor readiness); verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/GuestModeBanner.tsx",
+          "operation": "create",
+          "description": "Add a persistent guest-mode banner explaining limitations (browse-only, saving requires sign-in) and a call-to-action to sign in using the authorization component; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/usePrincipal.ts",
+          "operation": "create",
+          "description": "Add a small hook to derive current principal string (or 'guest') from useInternetIdentity for use in per-user localStorage keys and UI labels."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build core screens and SPA navigation: Dashboard, Log a Run, History (list/detail), and Settings; integrate with backend via React Query refresh.",
+      "acceptanceCriteria": [
+        "A user can navigate between Dashboard, Log a Run, History, and Settings without page reloads",
+        "Log a Run submits to the backend and updates the Dashboard/History via React Query refresh",
+        "Dashboard clearly shows whether today is completed, current streak count, and the configured goal",
+        "All user-facing text is in English"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "create",
+          "description": "Create the Dashboard screen showing today status, goal summary, streak, motivation message, achievements section, and guest-mode callouts. Compose shadcn-ui components (cards/buttons/alerts) for consistent UI; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/LogRunPage.tsx",
+          "operation": "create",
+          "description": "Create the Log a Run form screen (date/time, duration minutes, optional distance+unit, optional notes) with client-side validation and submit handling via React Query mutation. Compose shadcn-ui form primitives for inputs/labels/errors; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/HistoryPage.tsx",
+          "operation": "create",
+          "description": "Create the History list screen that fetches recent run logs (limited) and navigates to a detail view without reload. Compose shadcn-ui list/table components; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/RunLogDetailPage.tsx",
+          "operation": "create",
+          "description": "Create a run log detail screen (read-only) that displays a selected log’s fields and links back to History."
+        },
+        {
+          "path": "frontend/src/pages/SettingsPage.tsx",
+          "operation": "create",
+          "description": "Create the Settings screen for daily goal configuration (time minutes and optional distance + unit), plus reminder preferences (REQ-6). Compose shadcn-ui components for toggles/selects/inputs; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/queries/useDashboardSummary.ts",
+          "operation": "create",
+          "description": "Add React Query hooks to fetch the data needed for the Dashboard by composing existing backend capabilities (goals, run logs, motivation message, achievements) and computing derived UI state client-side (today completed, streak delta) for fast refresh."
+        },
+        {
+          "path": "frontend/src/hooks/queries/useRunLogs.ts",
+          "operation": "create",
+          "description": "Add React Query query+mutation hooks for listing run logs and adding a run log, including query invalidation so Dashboard/History update immediately after logging."
+        },
+        {
+          "path": "frontend/src/hooks/queries/useGoals.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for reading and saving daily goal settings, including invalidation so Dashboard reflects changes immediately."
+        },
+        {
+          "path": "frontend/src/components/navigation/BottomNav.tsx",
+          "operation": "create",
+          "description": "Add a mobile-friendly navigation component linking to Dashboard, Log a Run, History, and Settings. Compose shadcn-ui buttons for active states; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the new pages into the SPA router and navigation (Dashboard, Log a Run, History, Settings, and History detail), ensuring navigation occurs without reloads and all user-facing text remains in English."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Add daily motivation UX with progress feedback toward today’s goal and celebration when completing today or extending streak.",
+      "acceptanceCriteria": [
+        "Dashboard displays a motivational message that can change daily (deterministic per date and/or user, or selectable from a backend-provided list)",
+        "When the user logs a run for today, the UI transitions to a “completed today” state with a celebration message",
+        "Streak increases when consecutive days have at least one run log, and the UI reflects streak changes immediately after logging"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/motivation/MotivationCard.tsx",
+          "operation": "create",
+          "description": "Create a Dashboard card that displays the motivational message (from backend capability) and shows daily progress toward the goal with clear feedback. Compose shadcn-ui card/progress components; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/motivation/CelebrationBanner.tsx",
+          "operation": "create",
+          "description": "Add a celebratory banner UI for 'completed today' and 'streak extended' states, triggered after successful log submission and derived streak change."
+        },
+        {
+          "path": "frontend/src/lib/streak.ts",
+          "operation": "create",
+          "description": "Implement client-side helpers to compute 'today completed' and a streak preview from the fetched run logs (used for immediate UI feedback after logging), without changing backend logic."
+        },
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "modify",
+          "description": "Integrate motivation message, goal progress, and celebration UI into Dashboard, ensuring the 'completed today' state updates immediately after logging via React Query invalidation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Display achievements/badges with earned vs locked states and highlight newly unlocked achievements.",
+      "acceptanceCriteria": [
+        "At least 5 achievements are defined with clear unlock conditions based on stored run logs",
+        "When an achievement is newly unlocked, it is highlighted to the user on the Dashboard (e.g., banner/toast)",
+        "An Achievements section (on Dashboard or a dedicated area) shows earned vs locked achievements"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/lib/achievementsCatalog.ts",
+          "operation": "create",
+          "description": "Define a frontend achievements catalog (>= 5) with ids, names, descriptions, and unlock condition descriptions used to render locked states consistently with backend-provided earned achievements."
+        },
+        {
+          "path": "frontend/src/components/achievements/AchievementsGrid.tsx",
+          "operation": "create",
+          "description": "Render an Achievements section showing earned vs locked achievements using the catalog + backend earned achievements list. Use the generated badge icon asset set for visuals; compose shadcn-ui cards/badges; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/achievements/NewAchievementToast.tsx",
+          "operation": "create",
+          "description": "Add a lightweight toast/banner UI to highlight newly unlocked achievements after a successful run log submission or goal completion flow (based on delta between previously fetched achievements and refreshed list). Compose shadcn-ui toast/alert patterns; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "modify",
+          "description": "Wire the achievements grid and new-unlock highlight into the Dashboard, ensuring new unlocks are highlighted after refresh."
+        },
+        {
+          "path": "frontend/public/assets/generated/badges-set.dim_1024x1024.png",
+          "operation": "create",
+          "description": "Add the generated badges image asset and wire it into the Achievements UI as a static asset at this exact path."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Add in-app reminders UX: reminder time + enable toggle in Settings and a Dashboard banner when past time and today not completed.",
+      "acceptanceCriteria": [
+        "Settings includes a reminder time control and an enable/disable toggle stored in user preferences",
+        "If reminders are enabled and today is not completed, the Dashboard shows a reminder banner after the chosen time (based on browser local time)",
+        "No integration with push notifications, SMS, email, or external services is required"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/lib/preferences.ts",
+          "operation": "create",
+          "description": "Implement frontend user preferences persistence for reminder settings using localStorage keyed by principal (or 'guest') so preferences behave as per-user UI preferences without external services."
+        },
+        {
+          "path": "frontend/src/components/reminders/ReminderBanner.tsx",
+          "operation": "create",
+          "description": "Create a prominent Dashboard reminder banner that appears when reminders are enabled, local time is past the preferred reminder time, and today is not completed. Compose shadcn-ui alert components; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/SettingsPage.tsx",
+          "operation": "modify",
+          "description": "Add reminder enable toggle and reminder time control; persist to per-user frontend preferences; ensure labels and help text are in English."
+        },
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "modify",
+          "description": "Display the reminder banner conditionally based on browser local time, saved reminder preferences, and today completion state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Create and apply a cohesive running-motivation visual theme (non blue+purple primary), responsive layout, and consistent component styling.",
+      "acceptanceCriteria": [
+        "The app has a consistent design system (spacing, typography scale, button/input styles) across Dashboard, Log a Run, History, and Settings",
+        "Theme avoids default/unstyled template look and does not rely on blue+purple as the primary palette",
+        "UI is responsive and usable on mobile-sized screens"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Add global styling using Tailwind and CSS variables for a sporty theme (e.g., energetic orange/green accents), consistent typography scale, spacing, and base element styles; ensure responsive defaults for mobile."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust Tailwind theme tokens (CSS variable defaults and/or extended palette) to align with the running theme and avoid blue+purple as primary."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "create",
+          "description": "Create a consistent layout wrapper with header (logo + auth button), content container, and bottom navigation optimized for mobile. Compose shadcn-ui components for consistent look; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Apply AppLayout across all screens and ensure routes render within the themed layout consistently."
+        },
+        {
+          "path": "frontend/public/assets/generated/run-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated app logo asset and wire it into the header/app shell as a static asset at this exact path."
+        },
+        {
+          "path": "frontend/public/assets/generated/run-hero-bg.dim_1600x600.png",
+          "operation": "create",
+          "description": "Add the generated hero background asset and wire it into the Dashboard header/hero section as a static asset at this exact path."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Add frontend validation, duplicate-submit prevention, and user-friendly error handling for backend failures.",
+      "acceptanceCriteria": [
+        "Log a Run form prevents invalid submissions and shows inline validation messages",
+        "If a backend call fails, the UI shows an error state with retry guidance",
+        "The backend rejects obviously invalid values (e.g., negative duration/distance) and returns a clear error to the client"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/lib/validation.ts",
+          "operation": "create",
+          "description": "Implement reusable validation helpers for run logs (non-negative numbers, reasonable upper bounds, required fields), returning field-level error messages for inline display."
+        },
+        {
+          "path": "frontend/src/components/system/ErrorCallout.tsx",
+          "operation": "create",
+          "description": "Create a reusable user-friendly error callout for failed backend calls with retry guidance (e.g., 'Please try again' + a retry button). Compose shadcn-ui alert/button components; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/lib/submitGuards.ts",
+          "operation": "create",
+          "description": "Add client-side duplicate submission prevention helpers (disable submit while pending, and optionally guard against rapid repeat submissions by hashing the last payload+timestamp and blocking within a short window)."
+        },
+        {
+          "path": "frontend/src/pages/LogRunPage.tsx",
+          "operation": "modify",
+          "description": "Wire in validation, duplicate-submit prevention, inline field errors, and mutation error handling that surfaces user-friendly messages (and uses ErrorCallout with retry)."
+        },
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "modify",
+          "description": "Add robust loading/error states for Dashboard queries (motivation, goals, run logs, achievements), with retry guidance on failures."
+        }
+      ]
+    }
+  ]
+}

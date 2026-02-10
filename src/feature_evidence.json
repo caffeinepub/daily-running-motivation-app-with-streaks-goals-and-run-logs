@@ -1,0 +1,166 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-internet-identity-sign-in-and-associate-all-user-data-goals-run-logs-streak-with-the-authenticated-principal-allow-a-limited-guest-mode-if-the-user-is-not-signed-in",
+      "featureTitle": "Implement Internet Identity sign-in and associate all user data (goals, run logs, streak) with the authenticated principal; allow a limited guest mode if the user is not signed in.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/AuthButton.tsx",
+        "frontend/src/components/auth/GuestModeBanner.tsx",
+        "frontend/src/components/auth/ProfileSetupDialog.tsx",
+        "frontend/src/hooks/usePrincipal.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-the-core-frontend-screens-and-navigation-for-the-running-motivation-app-1-dashboard-today-s-motivation-goal-streak-2-log-a-run-form-3-history-list-detail-of-run-logs-and-4-settings-for-daily-goal-and-preferences",
+      "featureTitle": "Build the core frontend screens and navigation for the running motivation app: (1) Dashboard (today’s motivation + goal + streak), (2) Log a Run form, (3) History list/detail of run logs, and (4) Settings for daily goal and preferences.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/navigation/BottomNav.tsx",
+        "frontend/src/hooks/queries/useDashboardSummary.ts",
+        "frontend/src/hooks/queries/useGoals.ts",
+        "frontend/src/hooks/queries/useRunLogs.ts",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/HistoryPage.tsx",
+        "frontend/src/pages/LogRunPage.tsx",
+        "frontend/src/pages/RunLogDetailPage.tsx",
+        "frontend/src/pages/SettingsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-motivation-system-that-encourages-daily-running-show-a-daily-motivational-message-progress-feedback-toward-today-s-goal-and-celebratory-ui-when-a-user-completes-today-s-run-or-extends-a-streak",
+      "featureTitle": "Add a motivation system that encourages daily running: show a daily motivational message, progress feedback toward today’s goal, and celebratory UI when a user completes today’s run or extends a streak.",
+      "files": [
+        "frontend/src/components/motivation/CelebrationBanner.tsx",
+        "frontend/src/components/motivation/MotivationCard.tsx",
+        "frontend/src/lib/streak.ts",
+        "frontend/src/pages/DashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-achievements-badges-that-unlock-based-on-consistent-running-e-g-first-run-3-day-streak-7-day-streak-total-runs-milestones-and-display-them-in-the-ui",
+      "featureTitle": "Implement achievements/badges that unlock based on consistent running (e.g., first run, 3-day streak, 7-day streak, total runs milestones) and display them in the UI.",
+      "files": [
+        "frontend/src/components/achievements/AchievementsGrid.tsx",
+        "frontend/src/lib/achievementsCatalog.ts",
+        "frontend/src/pages/DashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-in-app-reminder-ux-no-external-push-notifications-allow-users-to-set-a-preferred-reminder-time-and-show-a-prominent-reminder-banner-when-the-current-local-time-is-past-the-reminder-time-and-today-s-run-is-not-completed",
+      "featureTitle": "Add an in-app reminder UX (no external push notifications): allow users to set a preferred reminder time and show a prominent reminder banner when the current local time is past the reminder time and today’s run is not completed.",
+      "files": [
+        "frontend/src/components/reminders/ReminderBanner.tsx",
+        "frontend/src/lib/preferences.ts",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/SettingsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-coherent-distinct-visual-theme-for-the-app-colors-typography-layout-components-suitable-for-a-running-motivation-product-and-apply-it-consistently-across-all-screens",
+      "featureTitle": "Create a coherent, distinct visual theme for the app (colors, typography, layout, components) suitable for a running motivation product, and apply it consistently across all screens.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-basic-safety-and-data-validation-rules-validate-run-log-inputs-non-negative-numbers-reasonable-limits-prevent-duplicate-run-submissions-for-the-same-time-accidentally-client-side-and-handle-backend-errors-with-user-friendly-messages",
+      "featureTitle": "Add basic safety and data-validation rules: validate run log inputs (non-negative numbers, reasonable limits), prevent duplicate run submissions for the same time accidentally (client-side), and handle backend errors with user-friendly messages.",
+      "files": [
+        "frontend/src/components/system/ErrorCallout.tsx",
+        "frontend/src/lib/submitGuards.ts",
+        "frontend/src/lib/validation.ts",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/LogRunPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

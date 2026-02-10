@@ -1,0 +1,182 @@
+{
+  "kind": "build_request",
+  "title": "Daily running motivation app with streaks, goals, and run logs",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Implement Internet Identity sign-in and associate all user data (goals, run logs, streak) with the authenticated principal; allow a limited guest mode if the user is not signed in.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ],
+        "quotes": [
+          "make an running app that gives you motivation to run everyday"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When signed in with Internet Identity, the app loads the signed-in user’s running data from the backend",
+        "If not signed in, the UI can still be explored in a guest mode but cannot persist data to the backend (or clearly prompts to sign in when attempting to save)",
+        "Signing out returns the app to the signed-out state and does not show the prior user’s data"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Create a backend data model and API to store and retrieve running motivation app data per user: user profile (display name optional), daily goal settings (e.g., minutes or distance as a number + unit), run logs (date, duration, distance optional, notes), computed streak information, and earned achievements/badges.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ],
+        "quotes": [
+          "make an running app that gives you motivation to run everyday"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend exposes update/query methods to: getProfile/getSettings, setSettings, addRunLog, listRunLogs (paginated or limited), getDashboardSummary (goal + today status + streak + achievements)",
+        "Data is scoped by caller principal so users can only access their own data",
+        "Streak is computed consistently based on run logs (e.g., at least one run log per calendar day counts as completing the day)"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build the core frontend screens and navigation for the running motivation app: (1) Dashboard (today’s motivation + goal + streak), (2) Log a Run form, (3) History list/detail of run logs, and (4) Settings for daily goal and preferences.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ],
+        "quotes": [
+          "make an running app that gives you motivation to run everyday"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A user can navigate between Dashboard, Log a Run, History, and Settings without page reloads",
+        "Log a Run submits to the backend and updates the Dashboard/History via React Query refresh",
+        "Dashboard clearly shows whether today is completed, current streak count, and the configured goal",
+        "All user-facing text is in English"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Add a motivation system that encourages daily running: show a daily motivational message, progress feedback toward today’s goal, and celebratory UI when a user completes today’s run or extends a streak.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ],
+        "quotes": [
+          "make an running app that gives you motivation to run everyday"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dashboard displays a motivational message that can change daily (deterministic per date and/or user, or selectable from a backend-provided list)",
+        "When the user logs a run for today, the UI transitions to a “completed today” state with a celebration message",
+        "Streak increases when consecutive days have at least one run log, and the UI reflects streak changes immediately after logging"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement achievements/badges that unlock based on consistent running (e.g., first run, 3-day streak, 7-day streak, total runs milestones) and display them in the UI.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ],
+        "quotes": [
+          "make an running app that gives you motivation to run everyday"
+        ]
+      },
+      "acceptanceCriteria": [
+        "At least 5 achievements are defined with clear unlock conditions based on stored run logs",
+        "When an achievement is newly unlocked, it is highlighted to the user on the Dashboard (e.g., banner/toast)",
+        "An Achievements section (on Dashboard or a dedicated area) shows earned vs locked achievements"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Add an in-app reminder UX (no external push notifications): allow users to set a preferred reminder time and show a prominent reminder banner when the current local time is past the reminder time and today’s run is not completed.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ],
+        "quotes": [
+          "make an running app that gives you motivation to run everyday"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Settings includes a reminder time control and an enable/disable toggle stored in user preferences",
+        "If reminders are enabled and today is not completed, the Dashboard shows a reminder banner after the chosen time (based on browser local time)",
+        "No integration with push notifications, SMS, email, or external services is required"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Create a coherent, distinct visual theme for the app (colors, typography, layout, components) suitable for a running motivation product, and apply it consistently across all screens.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ],
+        "quotes": [
+          "make an running app that gives you motivation to run everyday"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The app has a consistent design system (spacing, typography scale, button/input styles) across Dashboard, Log a Run, History, and Settings",
+        "Theme avoids default/unstyled template look and does not rely on blue+purple as the primary palette",
+        "UI is responsive and usable on mobile-sized screens"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Add basic safety and data-validation rules: validate run log inputs (non-negative numbers, reasonable limits), prevent duplicate run submissions for the same time accidentally (client-side), and handle backend errors with user-friendly messages.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-10"
+        ],
+        "quotes": [
+          "make an running app that gives you motivation to run everyday"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Log a Run form prevents invalid submissions and shows inline validation messages",
+        "If a backend call fails, the UI shows an error state with retry guidance",
+        "The backend rejects obviously invalid values (e.g., negative duration/distance) and returns a clear error to the client"
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor in backend/main.mo (no additional backend services)",
+    "Do not edit files under frontend/src/components/ui or other immutable paths; compose those components instead",
+    "No third-party authentication other than Internet Identity",
+    "No real-time sockets, push notifications, SMS, email services, GPS/geolocation, maps, or external databases"
+  ],
+  "nonGoals": [
+    "GPS route tracking, pace maps, or distance auto-detection",
+    "Social features (friends, leaderboards, chat)",
+    "Integration with wearables or external fitness APIs",
+    "Payments or subscriptions"
+  ],
+  "imageRequirements": {
+    "required": [
+      "App logo mark in a bold, sporty style with a running motif (run-logo.dim_512x512.png)",
+      "Wide hero background illustration with an energetic morning run scene in a clean flat/vector style (run-hero-bg.dim_1600x600.png)",
+      "Set of 6 badge icons with distinct shapes for achievements (badges-set.dim_1024x1024.png)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

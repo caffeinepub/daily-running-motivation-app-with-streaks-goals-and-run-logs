@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a running motivation app that helps users stay motivated to run every day.",
+  "architectural_notes": [],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- App logo mark in a bold, sporty style with a running motif (run-logo.dim_512x512.png)\n- Wide hero background illustration with an energetic morning run scene in a clean flat/vector style (run-hero-bg.dim_1600x600.png)\n- Set of 6 badge icons with distinct shapes for achievements (badges-set.dim_1024x1024.png)",
+  "existing_features": [
+    {
+      "id": "feature-implement-internet-identity-sign-in-and-associate-all-user-data-goals-run-logs-streak-with-the-authenticated-principal-allow-a-limited-guest-mode-if-the-user-is-not-signed-in",
+      "title": "Implement Internet Identity sign-in and associate all user data (goals, run logs, streak) with the authenticated principal; allow a limited guest mode if the user is not signed in.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-core-frontend-screens-and-navigation-for-the-running-motivation-app-1-dashboard-today-s-motivation-goal-streak-2-log-a-run-form-3-history-list-detail-of-run-logs-and-4-settings-for-daily-goal-and-preferences",
+      "title": "Build the core frontend screens and navigation for the running motivation app: (1) Dashboard (today’s motivation + goal + streak), (2) Log a Run form, (3) History list/detail of run logs, and (4) Settings for daily goal and preferences.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-motivation-system-that-encourages-daily-running-show-a-daily-motivational-message-progress-feedback-toward-today-s-goal-and-celebratory-ui-when-a-user-completes-today-s-run-or-extends-a-streak",
+      "title": "Add a motivation system that encourages daily running: show a daily motivational message, progress feedback toward today’s goal, and celebratory UI when a user completes today’s run or extends a streak.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-achievements-badges-that-unlock-based-on-consistent-running-e-g-first-run-3-day-streak-7-day-streak-total-runs-milestones-and-display-them-in-the-ui",
+      "title": "Implement achievements/badges that unlock based on consistent running (e.g., first run, 3-day streak, 7-day streak, total runs milestones) and display them in the UI.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-in-app-reminder-ux-no-external-push-notifications-allow-users-to-set-a-preferred-reminder-time-and-show-a-prominent-reminder-banner-when-the-current-local-time-is-past-the-reminder-time-and-today-s-run-is-not-completed",
+      "title": "Add an in-app reminder UX (no external push notifications): allow users to set a preferred reminder time and show a prominent reminder banner when the current local time is past the reminder time and today’s run is not completed.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-coherent-distinct-visual-theme-for-the-app-colors-typography-layout-components-suitable-for-a-running-motivation-product-and-apply-it-consistently-across-all-screens",
+      "title": "Create a coherent, distinct visual theme for the app (colors, typography, layout, components) suitable for a running motivation product, and apply it consistently across all screens.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-basic-safety-and-data-validation-rules-validate-run-log-inputs-non-negative-numbers-reasonable-limits-prevent-duplicate-run-submissions-for-the-same-time-accidentally-client-side-and-handle-backend-errors-with-user-friendly-messages",
+      "title": "Add basic safety and data-validation rules: validate run log inputs (non-negative numbers, reasonable limits), prevent duplicate run submissions for the same time accidentally (client-side), and handle backend errors with user-friendly messages.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a running app that motivates users to run every day",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Create a backend data model and API to store and retrieve running motivation app data per user: user profile (display name optional), daily goal settings (e.g., minutes or distance as a number + unit), run logs (date, duration, distance optional, notes), computed streak information, and earned achievements/badges.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Daily running motivation app with streaks, goals, and run logs",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
