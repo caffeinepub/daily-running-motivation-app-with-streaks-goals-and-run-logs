@@ -5,10 +5,10 @@
   "frontend/src/pages/HistoryPage.tsx": "Run history list page displaying recent run logs with date, duration, and distance, navigating to detail view on click.",
   "frontend/src/pages/RunLogDetailPage.tsx": "Run log detail page showing full information for a single run including date, time, duration, distance, and notes.",
   "frontend/src/pages/SettingsPage.tsx": "Settings page for configuring daily goal (time and optional distance) and reminder preferences (enable toggle and time picker) with localStorage persistence.",
-  "frontend/src/components/layout/AppLayout.tsx": "Main layout wrapper with header (logo, app name, auth button), footer (social links, copyright, caffeine.ai attribution), and bottom navigation for mobile.",
+  "frontend/src/components/layout/AppLayout.tsx": "Main layout wrapper with header displaying \"PacePower\" branding and updated logo (pacepower-logo.dim_512x512.png), footer with copyright, social links, caffeine.ai attribution, and bottom navigation for mobile.",
   "frontend/src/components/navigation/BottomNav.tsx": "Mobile-friendly bottom navigation bar with Home, Log Run, History, and Settings tabs with active state highlighting.",
   "frontend/src/components/auth/AuthButton.tsx": "Authentication button component handling Internet Identity login/logout with loading states and query cache clearing on logout.",
-  "frontend/src/components/auth/ProfileSetupDialog.tsx": "Modal dialog for first-time user profile setup prompting for optional display name after Internet Identity login.",
+  "frontend/src/components/auth/ProfileSetupDialog.tsx": "Modal dialog for first-time user profile setup with \"Welcome to PacePower!\" title and success message after Internet Identity login.",
   "frontend/src/components/auth/GuestModeBanner.tsx": "Alert banner displayed to unauthenticated users explaining guest mode limitations and prompting sign-in.",
   "frontend/src/components/motivation/MotivationCard.tsx": "Card component displaying daily motivational message and progress toward today's goal with visual progress bar.",
   "frontend/src/components/motivation/CelebrationBanner.tsx": "Alert banner celebrating newly unlocked achievements with trophy icon and achievement names.",
@@ -27,5 +27,6 @@
   "frontend/src/lib/preferences.ts": "LocalStorage-based reminder preferences management with per-user keys and default values.",
   "frontend/src/lib/achievementsCatalog.ts": "Frontend catalog of all available achievements with bigint IDs matching backend type, names, and descriptions for displaying locked states.",
   "frontend/src/index.css": "Global styles with OKLCH color system using energetic orange (hue 35) as primary color, avoiding blue/purple palette, with light and dark mode support.",
-  "frontend/tailwind.config.js": "Tailwind configuration with extended color tokens, custom shadows, and animation utilities matching the sporty orange theme."
+  "frontend/tailwind.config.js": "Tailwind configuration with extended color tokens, custom shadows, and animation utilities matching the sporty orange theme.",
+  "frontend/index.html": "HTML entry point with updated document title \"PacePower - Daily Running Motivation\" for browser tab display."
 }

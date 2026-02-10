@@ -1,11 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
+  "projectStateVersion": 7,
   "summary": "Build a running motivation app that helps users stay motivated to run every day.",
-  "architectural_notes": [],
-  "known_issues": [],
+  "architectural_notes": [
+    "Centralize app display name/branding strings so renaming updates all UI text consistently.",
+    "Centralize branding assets (logo files/paths) similarly to branding strings so logo changes propagate consistently across the UI."
+  ],
+  "known_issues": [
+    "UI still shows the old app name (RunMotivate) instead of the requested new name (PacePowet).",
+    "Logo still uses the old branding and needs to be updated to match PacePower."
+  ],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- App logo mark in a bold, sporty style with a running motif (run-logo.dim_512x512.png)\n- Wide hero background illustration with an energetic morning run scene in a clean flat/vector style (run-hero-bg.dim_1600x600.png)\n- Set of 6 badge icons with distinct shapes for achievements (badges-set.dim_1024x1024.png)",
+  "imageRequirements": "## Edit Images\n- Redesign the existing logo with updated PacePower branding (run-logo.dim_512x512.png > pacepower-logo.dim_512x512.png)",
   "existing_features": [
     {
       "id": "feature-implement-internet-identity-sign-in-and-associate-all-user-data-goals-run-logs-streak-with-the-authenticated-principal-allow-a-limited-guest-mode-if-the-user-is-not-signed-in",
@@ -62,6 +68,30 @@
         "REQ-8"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-app-s-user-facing-branding-so-the-visible-app-name-displays-as-pacepower-capital-p-capital-p-everywhere-in-the-frontend-replacing-any-remaining-runmotivate-strings-including-header-logo-alt-text-header-title-text-footer-copyright-text-onboarding-profile-setup-dialog-title-and-any-welcome-toast-messages-also-update-the-html-document-title-to-use-pacepower-branding",
+      "title": "Update the app’s user-facing branding so the visible app name displays as “PacePower” (capital P, capital P) everywhere in the frontend, replacing any remaining “RunMotivate” strings (including header logo alt text, header title text, footer copyright text, onboarding/profile setup dialog title, and any welcome/toast messages). Also update the HTML document title to use “PacePower” branding.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-pacepower-logo-image-replacing-the-current-header-logo-and-include-it-as-a-static-asset-under-frontend-public-assets-generated",
+      "title": "Create a new PacePower logo image (replacing the current header logo) and include it as a static asset under frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-app-header-to-use-the-new-pacepower-logo-image-instead-of-assets-generated-run-logo-dim-512x512-png-without-changing-the-visible-app-name-text-pacepower-or-the-logo-alt-text-pacepower",
+      "title": "Update the app header to use the new PacePower logo image instead of /assets/generated/run-logo.dim_512x512.png, without changing the visible app name text ('PacePower') or the logo alt text ('PacePower').",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -78,10 +108,22 @@
         "REQ-2"
       ],
       "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Update app branding so the UI displays the new app name (change visible text from RunMotivate to PacePowet everywhere).",
+      "reqIds": [],
+      "status": "in_progress"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Update/replace the app logo to match the new PacePower branding.",
+      "reqIds": [],
+      "status": "pending"
     }
   ],
   "gameProjectType": "none",
-  "projectName": "Daily running motivation app with streaks, goals, and run logs",
+  "projectName": "PacePowet",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

@@ -1,111 +1,24 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-10T06:49:52.154Z",
-  "summary": "The diff adds a new Motoko backend actor and a React frontend with routing, Internet Identity hooks, dashboard summary queries, achievements UI, reminder banner, and app layout/theme. Several BuildRequest requirements can’t be fully verified due to backend truncation and many omitted frontend files (e.g., pages and preferences/catalog libs). Notable unrequested additions include social media footer links and an admin-token-based access control initialization path.",
+  "generatedAt": "2026-02-10T11:13:39.354Z",
+  "summary": "REQ-11 appears implemented by updating the header <img> src to the new logo path while keeping the visible app name text and alt text as \"PacePower\". REQ-10 is not evidenced in the diff because no new static asset file was added under frontend/public/assets/generated.",
   "missing_requirements": [
     {
-      "id": "REQ-2",
-      "requirement": "Backend exposes update/query methods to: getProfile/getSettings, setSettings, addRunLog, listRunLogs (paginated or limited), getDashboardSummary (goal + today status + streak + achievements).",
-      "reason": "From the visible backend snippet, only profile query methods are clearly present; the required method set (especially getSettings/setSettings and getDashboardSummary) is not evidenced in the truncated portion. Frontend also does not call a getDashboardSummary method (it computes summary client-side).",
+      "id": "REQ-10",
+      "requirement": "Create a new PacePower logo image and include it as a static asset under frontend/public/assets/generated.",
+      "reason": "The diff summary shows no added files, so there is no evidence that a new image file (e.g., pacepower-logo.dim_512x512.png) was created under frontend/public/assets/generated.",
       "evidence": [
-        "backend/main.mo (truncated)",
-        "frontend/src/hooks/queries/useDashboardSummary.ts"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "requirement": "At least 5 achievements are defined with clear unlock conditions based on stored run logs.",
-      "reason": "The backend snippet shows an achievements list containing 4 entries; the frontend catalog file is not shown, so there is no evidence of 5+ achievements or unlock logic in the provided diff summary.",
-      "evidence": [
-        "backend/main.mo (truncated)",
-        "frontend/src/components/achievements/AchievementsGrid.tsx"
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "requirement": "Settings includes a reminder time control and an enable/disable toggle stored in user preferences.",
-      "reason": "A ReminderBanner exists and reads preferences via getReminderPreferences(), but the diff summary does not include the Settings screen implementation or the preferences storage implementation to prove the control/toggle exist and are persisted.",
-      "evidence": [
-        "frontend/src/components/reminders/ReminderBanner.tsx",
-        "frontend/src/App.tsx (Settings route exists but page file content not shown)"
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "requirement": "Validate run log inputs (non-negative numbers, reasonable limits), prevent duplicate run submissions accidentally (client-side), and backend rejects invalid values with clear errors; frontend shows inline validation and user-friendly backend error handling with retry guidance.",
-      "reason": "The Log Run page/form implementation and backend validation logic are not shown in the provided diff summary, so input validation, duplicate prevention, and error handling requirements cannot be confirmed.",
-      "evidence": [
-        "frontend/src/App.tsx (LogRunPage route exists but page file content not shown)",
-        "backend/main.mo (truncated)",
-        "frontend/src/components/system/ErrorCallout.tsx (component exists, but no evidence it is used in Log Run flow)"
+        "File diff summary: \"ADDED FILES: - none\"",
+        "frontend/src/components/layout/AppLayout.tsx (references /assets/generated/pacepower-logo.dim_512x512.png but does not add the asset)"
       ]
     }
   ],
-  "hallucinated_features": [
-    {
-      "description": "Footer includes external social media links (Twitter/X, Facebook, Instagram) and a promotional link to caffeine.ai with UTM parameters.",
-      "reason": "BuildRequest does not request social links or promotional/referral footer content; this adds unrelated external links.",
-      "evidence": [
-        "frontend/src/components/layout/AppLayout.tsx"
-      ]
-    },
-    {
-      "description": "Admin-token/secret-parameter based access control initialization path for the backend actor.",
-      "reason": "BuildRequest does not specify an admin token, secret URL parameter, or access-control bootstrap mechanism beyond Internet Identity for user data scoping.",
-      "evidence": [
-        "frontend/src/hooks/useActor.ts",
-        "backend/main.mo (imports authorization/MixinAuthorization and authorization/access-control)"
-      ]
-    },
-    {
-      "description": "Use of next-themes ThemeProvider and system theme support.",
-      "reason": "BuildRequest asks for a coherent visual theme, but does not request OS/system theme switching or next-themes integration specifically.",
-      "evidence": [
-        "frontend/src/App.tsx"
-      ]
-    }
-  ],
-  "confidence": 0.62,
+  "hallucinated_features": [],
+  "confidence": 0.72,
   "changed_files": [
-    "all_files_summary.json",
-    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.css",
-    "frontend/index.html",
-    "frontend/src/App.tsx",
-    "frontend/src/components/achievements/AchievementsGrid.tsx",
-    "frontend/src/components/auth/AuthButton.tsx",
-    "frontend/src/components/auth/GuestModeBanner.tsx",
-    "frontend/src/components/auth/ProfileSetupDialog.tsx",
     "frontend/src/components/layout/AppLayout.tsx",
-    "frontend/src/components/motivation/CelebrationBanner.tsx",
-    "frontend/src/components/motivation/MotivationCard.tsx",
-    "frontend/src/components/navigation/BottomNav.tsx",
-    "frontend/src/components/reminders/ReminderBanner.tsx",
-    "frontend/src/components/system/ErrorCallout.tsx",
-    "frontend/src/hooks/queries/useAchievements.ts",
-    "frontend/src/hooks/queries/useDashboardSummary.ts",
-    "frontend/src/hooks/queries/useGoals.ts",
-    "frontend/src/hooks/queries/useRunLogs.ts",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
-    "frontend/src/hooks/usePrincipal.ts",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/index.css",
-    "frontend/src/lib/achievementsCatalog.ts",
-    "frontend/src/lib/preferences.ts",
-    "frontend/src/lib/streak.ts",
-    "frontend/src/lib/submitGuards.ts",
-    "frontend/src/lib/validation.ts",
-    "frontend/src/main.tsx",
-    "frontend/src/pages/DashboardPage.tsx",
-    "frontend/src/pages/HistoryPage.tsx",
-    "frontend/src/pages/LogRunPage.tsx",
-    "frontend/src/pages/RunLogDetailPage.tsx",
-    "frontend/src/pages/SettingsPage.tsx",
-    "frontend/src/utils/urlParams.ts",
-    "frontend/tailwind.config.js",
     "project_state.json"
   ]
 }

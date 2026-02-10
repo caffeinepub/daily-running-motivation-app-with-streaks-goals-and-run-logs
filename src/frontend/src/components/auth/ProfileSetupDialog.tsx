@@ -24,7 +24,7 @@ export default function ProfileSetupDialog() {
       await saveProfileMutation.mutateAsync({
         displayName: displayName.trim() || undefined,
       });
-      toast.success('Welcome to RunMotivate!');
+      toast.success('Welcome to PacePower!');
     } catch (error: any) {
       toast.error(error.message || 'Failed to save profile');
     }
@@ -34,7 +34,7 @@ export default function ProfileSetupDialog() {
     <Dialog open={true}>
       <DialogContent className="sm:max-w-md" onPointerDownOutside={(e) => e.preventDefault()}>
         <DialogHeader>
-          <DialogTitle>Welcome to RunMotivate!</DialogTitle>
+          <DialogTitle>Welcome to PacePower!</DialogTitle>
           <DialogDescription>
             Let's get you set up. What should we call you?
           </DialogDescription>

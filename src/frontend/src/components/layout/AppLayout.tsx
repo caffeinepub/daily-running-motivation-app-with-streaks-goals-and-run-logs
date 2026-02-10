@@ -19,12 +19,12 @@ export default function AppLayout({ children }: AppLayoutProps) {
         <div className="container flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-3">
             <img
-              src="/assets/generated/run-logo.dim_512x512.png"
-              alt="RunMotivate"
+              src="/assets/generated/pacepower-logo.dim_512x512.png"
+              alt="PacePower"
               className="h-10 w-10"
             />
             <span className="text-xl font-bold bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">
-              RunMotivate
+              PacePower
             </span>
           </div>
           <AuthButton />
@@ -68,7 +68,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
               </a>
             </div>
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} RunMotivate. All rights reserved.
+              © {new Date().getFullYear()} PacePower. All rights reserved.
             </p>
             <p className="text-sm text-muted-foreground flex items-center gap-1">
               Built with <Heart className="h-3 w-3 text-orange-500 fill-orange-500" /> using{' '}
